@@ -17,6 +17,7 @@
 #define IDM_DELETE                      1010
 #define IDM_BIG							1012
 #define IDM_ORIGIN						1013
+#define IDM_SMALL						1014
 #define IDC_NAME                        1005
 #define IDC_TYPE                        1006
 #define ID_FILE                         40001
