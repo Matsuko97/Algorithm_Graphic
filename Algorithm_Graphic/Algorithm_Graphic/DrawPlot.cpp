@@ -25,7 +25,7 @@ void DrawPolyLine(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 	RECT temprange = range;
 	HDC hdc;
 	hdc = GetDC (hwnd) ;               //获得窗口句柄
-	SaveDC(hdc);                            //保存原来的设备句柄
+	SaveDC(hdc);                       //保存原来的设备句柄
 
 	SelectObject(hdc , hPen);//选择画笔
 	
@@ -41,12 +41,12 @@ void DrawPolyLine(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 	DrawMoveTo(hdc,data[0].X,data[0].Y);          //移动到起始点，然后将起始点转化为windows坐标
 	for (i=0; i<lineNum; ++i)
 	{
-		nX = LogicX2WindowX(data[i].X);            //将待画数组中的数据转化为windows坐标
+		nX = LogicX2WindowX(data[i].X);           //将待画数组中的数据转化为windows坐标
 		nY = LogicY2WindowY(data[i].Y);
 		DrawLine(hdc,nX,nY);                         
 	}
 	
-	RestoreDC (hdc, -1) ;               //恢复原来的设备句柄
+	RestoreDC (hdc, -1) ;           //恢复原来的设备句柄
 	ReleaseDC (hwnd, hdc);          //释放窗口句柄
 
 }

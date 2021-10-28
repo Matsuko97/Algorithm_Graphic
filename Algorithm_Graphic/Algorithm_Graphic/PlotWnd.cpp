@@ -157,15 +157,31 @@ LRESULT CALLBACK PlotWnd::WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lP
 			
 			if( function == BIG )
 			{
+				//RECT rect;
+				//GetClientRect(hwnd,&rect);
+				//int cxClient=rect.right;
+				//int cyClient=rect.bottom;
+				//HDC hdc= GetDC(hwnd);
+				//SetStretchBltMode(hdc,COLORONCOLOR);
+				//StretchBlt (hdc, 0, 0, cxClient*1.5, cyClient*1.5,
+				//	hdc, pt.x, pt.y, cxClient, cyClient, MERGECOPY) ;
+				//ReleaseDC(hwnd, hdc) ;
 				RECT rect;
 				GetClientRect(hwnd,&rect);
 				int cxClient=rect.right;
 				int cyClient=rect.bottom;
-				HDC hdc= GetDC(hwnd);
-				SetStretchBltMode(hdc,COLORONCOLOR);
-				StretchBlt (hdc, 0, 0, cxClient*1.5, cyClient*1.5,
-					hdc, pt.x, pt.y, cxClient, cyClient, MERGECOPY) ;
-				ReleaseDC(hwnd, hdc) ;
+				HDC hdcClient = GetDC(hwnd);
+				HDC hdcMem = CreateCompatibleDC (hdcClient);
+				HBITMAP hMem = CreateCompatibleBitmap(hdcClient, cxClient, cyClient);
+				SelectObject(hdcMem, hMem);
+				BitBlt(hdcMem, 0, 0, cxClient, cyClient, hdcClient, 0, 0, SRCCOPY);
+				PatBlt(hdcClient, 0, 0, cxClient, cyClient, WHITENESS);
+				SetStretchBltMode(hdcClient,COLORONCOLOR);
+				StretchBlt (hdcClient, 0, 0, cxClient*1.5, cyClient*1.5,
+					hdcMem, pt.x, pt.y, cxClient, cyClient, SRCCOPY);
+				ReleaseDC(hwnd, hdcClient) ;
+				DeleteDC (hdcMem) ;
+				DeleteObject (hMem) ;
 			}
 
 			else if( function == SMALL )

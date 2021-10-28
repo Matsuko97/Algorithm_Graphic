@@ -287,7 +287,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						Line amplitude;
 						amplitude.data = GetData(szAmpName);
 						amplitude.PointNum = lineNum;
-						amplitude.LineColor = RGB(0,255,0);
+						amplitude.LineColor = RGB(0,150,0);
 						amplitude.type = DOT;
 						amplitude.LineName = amplitude.AMPLITUDE;
 						temp = amplitude;
