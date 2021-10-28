@@ -17,3 +17,4 @@
 #include "Smooth.h"
 #include "WriteInfo.h"
 #include "SymmetricZeroArea.h"
+#include "Amplitude.h"

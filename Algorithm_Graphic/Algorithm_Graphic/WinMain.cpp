@@ -18,6 +18,8 @@ FileInfo fileDataSmooth;
 
 BOOL beFaund = false;
 
+int OriginalNum = 0;
+
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
 {
 	static TCHAR szAppName[]=TEXT("TEST");
@@ -156,6 +158,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					if(fileData)
 					{
 						MessageBox( NULL, TEXT("数据获取成功"), TEXT("数据处理"), MB_OK );
+						OriginalNum = GetLineNum( szFileName );
 						plotWnd.dataReady = true;
 						GetDataRange(minX , maxX, minY , maxY ,fileData);
 
@@ -173,7 +176,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				{
 					p = plotWnd.Head;
 					while(p) {
-						if((p->line).LineName == (p->line).SMOOTH) {
+						if((p->line).LineName == (p->line).ORIGIN) {
 							beFaund = true;
 						}
 						else {
@@ -189,6 +192,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						origin.data = fileData;
 						origin.type = CURVE;
 						origin.LineName = origin.ORIGIN;
+						origin.PointNum = OriginalNum;
 						temp = origin;
 						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp );
 					}
@@ -212,12 +216,14 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						beFaund = false;
 					}
 					else{
+						lineNum = OriginalNum;
 						Smooth(fileData , lineNum ,fileDataSmooth);
 						GenerateFileName( szFileNameSmooth );
 						WriteFileInfo( lineNum , fileDataSmooth , szFileNameSmooth );
 
 						Line smooth;
 						smooth.data = fileDataSmooth;
+						smooth.PointNum = lineNum;
 						smooth.LineColor = RGB(255,0,0);
 						smooth.PenStyle = PS_DASH;
 						smooth.type = CURVE;
@@ -233,7 +239,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				{
 					p = plotWnd.Head;
 					while(p) {
-						if((p->line).LineName == (p->line).SMOOTH) {
+						if((p->line).LineName == (p->line).SZA_G) {
 							beFaund = true;
 						}
 						else {
@@ -252,7 +258,39 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						gaussian.PointNum = lineNum;
 						gaussian.LineColor = RGB(0 , 200, 200);
 						gaussian.type = DOT;
+						gaussian.LineName = gaussian.SZA_G;
 						temp = gaussian;
+						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
+					}
+					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
+				}
+				break;
+
+			case IDB_AMPLITUDE:
+				{
+					p = plotWnd.Head;
+					while(p) {
+						if((p->line).LineName == (p->line).AMPLITUDE) {
+							beFaund = true;
+						}
+						else {
+							p = p->next;
+						}
+					}
+
+					if(beFaund){
+						beFaund = false;
+					}
+					else{
+						Amplitude( fileDataSmooth , lineNum );
+
+						Line amplitude;
+						amplitude.data = GetData(szAmpName);
+						amplitude.PointNum = lineNum;
+						amplitude.LineColor = RGB(0,255,0);
+						amplitude.type = DOT;
+						amplitude.LineName = amplitude.AMPLITUDE;
+						temp = amplitude;
 						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
 					}
 					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);

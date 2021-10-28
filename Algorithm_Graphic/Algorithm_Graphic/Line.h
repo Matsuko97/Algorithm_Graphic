@@ -14,7 +14,7 @@ public:
 public:
 	FileInfo data;
 	int PointNum;
-	enum {NOT_START , ORIGIN , SMOOTH , SZA_G , SZA_SW , SELECT , DELECT} LineName;
+	enum {NOT_START , ORIGIN , SMOOTH , SZA_G , SZA_SW , AMPLITUDE, SELECT , DELECT} LineName;
 	//曲线名，用于区别不同曲线和Setting,Delete
 
 	//画图相关

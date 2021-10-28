@@ -18,5 +18,6 @@ extern FileInfo fileData;
 extern FileInfo fileDataSmooth;
 
 extern int  cxChar, cyChar ;
+extern int OriginalNum;
 
 #endif
