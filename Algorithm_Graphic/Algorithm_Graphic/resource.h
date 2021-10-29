@@ -8,6 +8,11 @@
 #define IDB_GAUSSIAN                    4
 #define IDB_SQUARE_WAVE                 5
 #define IDB_AMPLITUDE                   6
+#define IDC_FRAME1						7
+#define IDB_FILTERAMP					8
+#define IDB_FILTERAVG					9
+#define IDB_FILTERMID					10
+#define IDB_FILTERDEBNC					11
 #define IDR_TESTMENU                    101
 #define IDD_SETDLG                      102
 #define IDC_COLOR                       1001

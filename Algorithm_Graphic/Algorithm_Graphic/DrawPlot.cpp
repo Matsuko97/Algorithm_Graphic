@@ -43,7 +43,7 @@ void DrawPolyLine(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 	{
 		nX = LogicX2WindowX(data[i].X);           //将待画数组中的数据转化为windows坐标
 		nY = LogicY2WindowY(data[i].Y);
-		DrawLine(hdc,nX,nY);                         
+		DrawLine(hdc, nX, nY);                         
 	}
 	
 	RestoreDC (hdc, -1) ;           //恢复原来的设备句柄
@@ -123,4 +123,11 @@ void GetDataRange(double &minX , double &maxX , double &minY , double &maxY ,Fil
 			maxY = fileData[i].Y;
 
 	}
+
+	maxX = maxX + 1;
+	maxY = maxY + 1;
+	minX = minX - 1;
+	minY = minY - 1;
+
+	return;
 }

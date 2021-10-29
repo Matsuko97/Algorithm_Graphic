@@ -14,7 +14,7 @@ void Smooth(FileInfo dataNew, int &lineNum, FileInfo &dataNewSmooth)
 	}
 
 	lineNum = lineNum - 4;
-
+	
 	//GenerateFileName( szFileNameSmooth );
 	//WriteFileInfo( lineNum , dataNewSmooth , szFileNameSmooth );
 

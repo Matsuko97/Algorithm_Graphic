@@ -187,6 +187,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FilterAmpLimiter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterAvg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterDeBnc.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterMedian.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GetInfo.cpp"
 				>
 			</File>
@@ -234,6 +250,22 @@
 			</File>
 			<File
 				RelativePath=".\DrawScaleLabel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterAmpLimiter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterAvg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterDeBnc.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FilterMedian.h"
 				>
 			</File>
 			<File

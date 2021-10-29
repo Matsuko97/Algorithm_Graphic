@@ -19,6 +19,7 @@ FileInfo fileDataSmooth;
 BOOL beFaund = false;
 
 int OriginalNum = 0;
+int SmoothNum = 0;
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
 {
@@ -93,32 +94,63 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 		cyChar = HIWORD (GetDialogBaseUnits ()) ;
 
 		GetClientRect(hwnd,&rect);
-		rect.left = rect.right/4;
-
-		plotWnd.CreatePlotWindow(hwnd , rect);
+		//rect.left = rect.right/4;
+		//plotWnd.CreatePlotWindow(hwnd , rect);
 
 		hwndFunction = CreateWindow(TEXT("button"),TEXT("原始数据"),
-			WS_CHILD|WS_VISIBLE,10,100,200,30,
+			WS_CHILD|WS_VISIBLE,10,20,rect.right/4 - 20,30,
 			hwnd, (HMENU)IDB_GETINFO, NULL,NULL);
 
 		hwndFunction = CreateWindow(TEXT("button"),TEXT("光滑处理"),
-			WS_CHILD|WS_VISIBLE,10,150,200,30,
+			WS_CHILD|WS_VISIBLE,40,100,200,30,
 			hwnd, (HMENU)IDB_SMOOTH, NULL,NULL);
 
 		hwndFunction = CreateWindow(TEXT("button"),TEXT("对称零面积：高斯"),
-			WS_CHILD|WS_VISIBLE,10,200,200,30,
+			WS_CHILD|WS_VISIBLE,40,140,200,30,
 			hwnd, (HMENU)IDB_GAUSSIAN, NULL,NULL);
 
 		hwndFunction = CreateWindow(TEXT("button"),TEXT("对称零面积：方波"),
-			WS_CHILD|WS_VISIBLE,10,250,200,30,
+			WS_CHILD|WS_VISIBLE,40,180,200,30,
 			hwnd, (HMENU)IDB_SQUARE_WAVE, NULL,NULL);
 
 		hwndFunction = CreateWindow(TEXT("button"),TEXT("幅值寻峰"),
-			WS_CHILD|WS_VISIBLE,10,300,200,30,
+			WS_CHILD|WS_VISIBLE,40,220,200,30,
 			hwnd, (HMENU)IDB_AMPLITUDE, NULL,NULL);
+
+		CreateWindow(TEXT("BUTTON"), TEXT("Peak Searching"), WS_CHILD|WS_VISIBLE|BS_GROUPBOX, 
+			10, rect.bottom/8, rect.right/4 - 20, 3 * rect.bottom/8 - 10, hwnd, (HMENU)IDC_FRAME1, NULL, NULL); 
+
+		CreateWindow(TEXT("BUTTON"), TEXT("Filtering Algorithm"), WS_CHILD|WS_VISIBLE|BS_GROUPBOX, 
+			10, rect.bottom/2, rect.right/4 - 20, rect.bottom/2 - 10, hwnd, (HMENU)IDC_FRAME1, NULL, NULL); 
+
+		hwndFunction = CreateWindow(TEXT("button"),TEXT("AmplitudeLimiter"),
+			WS_CHILD|WS_VISIBLE,40,rect.bottom/2+40,200,30,
+			hwnd, (HMENU)IDB_FILTERAMP, NULL,NULL);
+
+		hwndFunction = CreateWindow(TEXT("button"),TEXT("Average Filter"),
+			WS_CHILD|WS_VISIBLE,40,rect.bottom/2+80,200,30,
+			hwnd, (HMENU)IDB_FILTERAVG, NULL,NULL);
+
+		hwndFunction = CreateWindow(TEXT("button"),TEXT("Median Filter"),
+			WS_CHILD|WS_VISIBLE,40,rect.bottom/2+120,200,30,
+			hwnd, (HMENU)IDB_FILTERMID, NULL,NULL);
+
+		hwndFunction = CreateWindow(TEXT("button"),TEXT("Debounce Filter"),
+			WS_CHILD|WS_VISIBLE,40,rect.bottom/2+160,200,30,
+			hwnd, (HMENU)IDB_FILTERDEBNC, NULL,NULL);
+
+		rect.left = rect.right/4;
+		plotWnd.CreatePlotWindow(hwnd , rect);
 
 		ReleaseDC(hwnd,hdc);
 
+		return 0;
+
+	case WM_CTLCOLORSTATIC: 
+		{ 
+			HDC hdc = (HDC)wParam; 
+		} 
+		return (BOOL)((HBRUSH)GetStockObject(NULL_BRUSH));
 		return 0;
 
 	case WM_PAINT:
@@ -176,7 +208,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				{
 					p = plotWnd.Head;
 					while(p) {
-						if((p->line).LineName == (p->line).ORIGIN) {
+						if((p->line).LineName == ORIGIN) {
 							beFaund = true;
 						}
 						else {
@@ -191,7 +223,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						Line origin;
 						origin.data = fileData;
 						origin.type = CURVE;
-						origin.LineName = origin.ORIGIN;
+						origin.LineName = ORIGIN;
 						origin.PointNum = OriginalNum;
 						temp = origin;
 						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp );
@@ -204,7 +236,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				{
 					p = plotWnd.Head;
 					while(p) {
-						if((p->line).LineName == (p->line).SMOOTH) {
+						if((p->line).LineName == SMOOTH) {
 							beFaund = true;
 						}
 						else {
@@ -218,16 +250,17 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					else{
 						lineNum = OriginalNum;
 						Smooth(fileData , lineNum ,fileDataSmooth);
+						SmoothNum = lineNum;
 						GenerateFileName( szFileNameSmooth );
 						WriteFileInfo( lineNum , fileDataSmooth , szFileNameSmooth );
 
 						Line smooth;
 						smooth.data = fileDataSmooth;
 						smooth.PointNum = lineNum;
-						smooth.LineColor = RGB(255,0,0);
+						smooth.LineColor = RED;
 						smooth.PenStyle = PS_DASH;
 						smooth.type = CURVE;
-						smooth.LineName = smooth.SMOOTH;
+						smooth.LineName = SMOOTH;
 						temp = smooth;
 						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
 					}
@@ -239,7 +272,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				{
 					p = plotWnd.Head;
 					while(p) {
-						if((p->line).LineName == (p->line).SZA_G) {
+						if((p->line).LineName == SZA_G) {
 							beFaund = true;
 						}
 						else {
@@ -251,14 +284,14 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						beFaund = false;
 					}
 					else{
-						SR( fileDataSmooth , lineNum );
+						SR( fileDataSmooth , SmoothNum );
 
 						Line gaussian;
 						gaussian.data = GetData(szSPeakName);
 						gaussian.PointNum = lineNum;
-						gaussian.LineColor = RGB(0 , 200, 200);
+						gaussian.LineColor = ORANGE;
 						gaussian.type = DOT;
-						gaussian.LineName = gaussian.SZA_G;
+						gaussian.LineName = SZA_G;
 						temp = gaussian;
 						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
 					}
@@ -270,7 +303,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				{
 					p = plotWnd.Head;
 					while(p) {
-						if((p->line).LineName == (p->line).AMPLITUDE) {
+						if((p->line).LineName == AMPLITUDE) {
 							beFaund = true;
 						}
 						else {
@@ -282,15 +315,139 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						beFaund = false;
 					}
 					else{
-						Amplitude( fileDataSmooth , lineNum );
+						Amplitude( fileDataSmooth , SmoothNum );
 
 						Line amplitude;
 						amplitude.data = GetData(szAmpName);
 						amplitude.PointNum = lineNum;
-						amplitude.LineColor = RGB(0,150,0);
+						amplitude.LineColor = PURPLE;
 						amplitude.type = DOT;
-						amplitude.LineName = amplitude.AMPLITUDE;
+						amplitude.LineName = AMPLITUDE;
 						temp = amplitude;
+						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
+					}
+					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
+				}
+				break;
+
+			case IDB_FILTERAMP:
+				{
+					p = plotWnd.Head;
+					while(p) {
+						if((p->line).LineName == FILTERAMP) {
+							beFaund = true;
+						}
+						else {
+							p = p->next;
+						}
+					}
+
+					if(beFaund){
+						beFaund = false;
+					}
+					else{
+						AmplitudeLimiterFilter( fileData, OriginalNum );
+						Line filterAmp;
+						filterAmp.data = GetData(szAmpFilter);
+						filterAmp.PointNum = lineNum;
+						filterAmp.LineColor = GREEN;
+						filterAmp.PenStyle = PS_DASHDOT;
+						filterAmp.type = CURVE;
+						filterAmp.LineName = FILTERAMP;
+						temp = filterAmp;
+						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
+					}
+					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
+				}
+				break;
+
+			case IDB_FILTERAVG:
+				{
+					p = plotWnd.Head;
+					while(p) {
+						if((p->line).LineName == FILTERAVG) {
+							beFaund = true;
+						}
+						else {
+							p = p->next;
+						}
+					}
+
+					if(beFaund){
+						beFaund = false;
+					}
+					else{
+						AverageFilter( fileData, OriginalNum );
+						Line filterAvg;
+						filterAvg.data = GetData(szAvgFilter);
+						filterAvg.PointNum = lineNum;
+						filterAvg.LineColor = BLUE;
+						filterAvg.PenStyle = PS_DASH;
+						filterAvg.type = CURVE;
+						filterAvg.LineName = FILTERAVG;
+						temp = filterAvg;
+						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
+					}
+					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
+				}
+				break;
+
+			case IDB_FILTERMID:
+				{	p = plotWnd.Head;
+					while(p) {
+						if((p->line).LineName == FILTERMEDIAN) {
+							beFaund = true;
+						}
+						else {
+							p = p->next;
+						}
+					}
+
+					if(beFaund){
+						beFaund = false;
+					}
+					else{
+						MedianFilter( fileData, OriginalNum );
+
+						Line filterMedian;
+						filterMedian.data = GetData(szMedianFilter);
+						filterMedian.PointNum = lineNum;
+						filterMedian.LineColor = PINK;
+						filterMedian.PenStyle = PS_SOLID;
+						filterMedian.type = CURVE;
+						filterMedian.LineName = FILTERMEDIAN;
+						temp = filterMedian;
+						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
+					}
+					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
+				}
+				break;
+
+			case IDB_FILTERDEBNC:
+				{	p = plotWnd.Head;
+					while(p) {
+						if((p->line).LineName == FILTERDEBNC) {
+							beFaund = true;
+						}
+						else {
+							p = p->next;
+						}
+					}
+
+					if(beFaund){
+						beFaund = false;
+					}
+					else{
+						DebounceFilter( fileData, OriginalNum );
+
+						Line filterDeBnc;
+						filterDeBnc.data = GetData(szFilterDeBnc);
+						filterDeBnc.PointNum = lineNum;
+						filterDeBnc.LineColor = LTBLUE;
+						filterDeBnc.PenStyle = PS_DASHDOT;
+						filterDeBnc.type = CURVE;
+						filterDeBnc.LineName = FILTERDEBNC;
+						temp = filterDeBnc;
 						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
 					}
 					SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);

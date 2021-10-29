@@ -7,7 +7,7 @@ Line::Line()
 	data = NULL;
 	PointNum = lineNum;
 	LineWidth = 1;
-	LineColor = RGB(0,0,0);
+	LineColor = BLACK;
 	PenStyle = PS_SOLID;
 	type = CURVE;
 	LineName = NOT_START;
