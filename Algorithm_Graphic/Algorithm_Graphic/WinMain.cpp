@@ -21,6 +21,8 @@ BOOL beFaund = false;
 int OriginalNum = 0;
 int SmoothNum = 0;
 
+COLORREF bkColor = RGB(192,192,192);
+
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
 {
 	static TCHAR szAppName[]=TEXT("TEST");
@@ -35,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 	wndclass.hInstance     = hInstance ;
 	wndclass.hIcon         = LoadIcon (NULL, IDI_APPLICATION) ;
 	wndclass.hCursor       = LoadCursor (NULL, IDC_ARROW) ;
-	wndclass.hbrBackground = (HBRUSH) GetStockObject (LTGRAY_BRUSH) ;
+	wndclass.hbrBackground = CreateSolidBrush(bkColor);/*(HBRUSH) GetStockObject (LTGRAY_BRUSH)*/
 	wndclass.lpszMenuName  = MAKEINTRESOURCE(IDR_TESTMENU) ;
 	wndclass.lpszClassName = szAppName ;
 
@@ -149,6 +151,12 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 	case WM_CTLCOLORSTATIC: 
 		{ 
 			HDC hdc = (HDC)wParam; 
+			//SetBkMode(hdc, TRANSPARENT);
+			//将背景模式设置成透明时，会看到组合框框架的框线；
+			
+            SetTextColor( hdc, RGB(0,0,0) );  //白色
+			SetBkColor( hdc, bkColor );
+
 		} 
 		return (BOOL)((HBRUSH)GetStockObject(NULL_BRUSH));
 		return 0;
