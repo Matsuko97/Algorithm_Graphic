@@ -117,10 +117,10 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 			WS_CHILD|WS_VISIBLE,40,220,200,30,
 			hwnd, (HMENU)IDB_AMPLITUDE, NULL,NULL);
 
-		CreateWindow(TEXT("BUTTON"), TEXT("Peak Searching"), WS_CHILD|WS_VISIBLE|BS_GROUPBOX, 
+		CreateWindow(TEXT("button"), TEXT("Peak Searching"), WS_CHILD|WS_VISIBLE|BS_GROUPBOX, 
 			10, rect.bottom/8, rect.right/4 - 20, 3 * rect.bottom/8 - 10, hwnd, (HMENU)IDC_FRAME1, NULL, NULL); 
 
-		CreateWindow(TEXT("BUTTON"), TEXT("Filtering Algorithm"), WS_CHILD|WS_VISIBLE|BS_GROUPBOX, 
+		CreateWindow(TEXT("button"), TEXT("Filtering Algorithm"), WS_CHILD|WS_VISIBLE|BS_GROUPBOX, 
 			10, rect.bottom/2, rect.right/4 - 20, rect.bottom/2 - 10, hwnd, (HMENU)IDC_FRAME1, NULL, NULL); 
 
 		hwndFunction = CreateWindow(TEXT("button"),TEXT("AmplitudeLimiter"),

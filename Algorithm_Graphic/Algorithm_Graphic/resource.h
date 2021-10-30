@@ -9,6 +9,7 @@
 #define IDB_SQUARE_WAVE                 5
 #define IDB_AMPLITUDE                   6
 #define IDC_FRAME1						7
+#define IDC_STATIC						12
 #define IDB_FILTERAMP					8
 #define IDB_FILTERAVG					9
 #define IDB_FILTERMID					10

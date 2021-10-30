@@ -1,0 +1,8 @@
+2021年10月30日：
+
+	->修改了 Median Filter 和 Average Filter 相关代码；
+
+	->解决了之前 Median Filter 和 Average Filter 数据处理后比原始数据大一点的问题；
+	( 暂存数据的变量result未置零因此在累加时会把上一次循环得到的平均值加进去，导致计算出的新平均值较原始数据略大 )
+
+	->Median Filter 的源文件中，注释掉了平均中位值算法；

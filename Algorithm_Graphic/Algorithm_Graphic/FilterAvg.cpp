@@ -14,26 +14,27 @@ void AverageFilter( fileInfo *data, int Num )
 {
 	double result = 0;
 	double *dataTemp;
-	dataTemp = (double*)calloc( number , sizeof(double) );
+	dataTemp = (double*)calloc( AverageNum , sizeof(double) );
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
 	int i;	
 
-	for( int a = 0; a < Num - number/2 ; a = a + number )
+	for( int a = 0; a < Num - AverageNum/2 ; a = a + AverageNum )
 	{
-		for( i = a ; i < (number + a); i++)
+		for( i = a; i < (AverageNum + a); i++)
 			dataTemp[i-a] = (data[i].Y);
 
-		for(int count = 0; count < number; count++)             
-		  result += dataTemp[count];
+		result = 0;
+		for(int count = 0; count < AverageNum; count++)
+			result += dataTemp[count];
 
-		result = result/number;
+		result = result/AverageNum ;
 
-		for(i=a ; i<(number+a) ; i++)
+		for(i = a; i < (AverageNum + a); i++)
 		{
 			dataNew[i].X = data[i].X;
 			dataNew[i].Y = result;
 		}
-			memset(dataTemp,0,sizeof(double) * number);
+			memset(dataTemp, 0, sizeof(double) * AverageNum);
 	}
 
 	//之前在实现均值滤波算法时，直接开辟了极大个数的数组来存放数据
@@ -41,7 +42,7 @@ void AverageFilter( fileInfo *data, int Num )
 	//现在是动态开辟数组个数，因此在循环中会出现数组越界而导致后续写入出错
 
 	GenerateFileName( szAvgFilter );
-	WriteFileInfo( Num - number/2 , dataNew , szAvgFilter );
+	WriteFileInfo( Num - AverageNum/2 , dataNew , szAvgFilter );
 
 	free(dataNew);
 	free(dataTemp);

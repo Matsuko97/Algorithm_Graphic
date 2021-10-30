@@ -10,7 +10,7 @@ void MedianFilter( fileInfo *data, int Num )
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
 
 	double *dataTemp;
-	dataTemp = (double*)malloc(sizeof(double) * number); 
+	dataTemp = (double*)malloc(sizeof(double) * MedianNum); 
 
 	int i,j;
 	int nCount = MedianNum/2 ;
@@ -30,13 +30,17 @@ void MedianFilter( fileInfo *data, int Num )
 					dataTemp[j+1] = change;
 				}
 			}
-	for(int count = 1 ; count < MedianNum - 1; count++)             
-        result += dataTemp[count]; 
-		result = result/(MedianNum - 2);
+
+		result = 0;
+		//for(int count = 1 ; count < MedianNum - 1; count++)             
+		//	result += dataTemp[count]; 
+		//	result = result/(MedianNum - 2);
+			//平均中值算法
+		result = dataTemp[nCount];
 
 		dataNew[a].X = data[a + nCount].X ;
 		dataNew[a].Y = result;
-		memset( dataTemp, 0, sizeof(double) * number);
+		memset( dataTemp, 0, sizeof(double) * MedianNum);
 	}
 
 	GenerateFileName( szMedianFilter );

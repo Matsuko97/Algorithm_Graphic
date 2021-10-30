@@ -1,7 +1,7 @@
 #ifndef _FILTERAVG_H_
 #define _FILTERAVG_H_
 
-#define number  31
+#define AverageNum  31
 
 void AverageFilter( fileInfo *data, int Num );
 
