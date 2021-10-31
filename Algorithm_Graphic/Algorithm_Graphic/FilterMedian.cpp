@@ -48,6 +48,8 @@ void MedianFilter( fileInfo *data, int Num )
 
 	free(dataNew);
 	free(dataTemp);
+	dataTemp = NULL;
+	dataNew = NULL;
 
 	return ;
 }

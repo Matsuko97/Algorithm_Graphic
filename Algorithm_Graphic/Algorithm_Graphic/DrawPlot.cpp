@@ -26,8 +26,9 @@ void DrawPolyLine(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 	HDC hdc;
 	hdc = GetDC (hwnd) ;               //获得窗口句柄
 	SaveDC(hdc);                       //保存原来的设备句柄
-
-	SelectObject(hdc , hPen);//选择画笔
+	
+	HPEN hOldPen;
+	hOldPen = (HPEN)SelectObject(hdc , hPen);//选择画笔
 	
 	SetMapMode (hdc, MM_ANISOTROPIC) ;
 	SetWindowExtEx (hdc, SCALE_HEIGHT_UNIT * 20, SCALE_HEIGHT_UNIT * -20, NULL) ;   //逻辑坐标间距
@@ -46,6 +47,7 @@ void DrawPolyLine(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 		DrawLine(hdc, nX, nY);                         
 	}
 	
+	SelectObject(hdc , hOldPen);
 	RestoreDC (hdc, -1) ;           //恢复原来的设备句柄
 	ReleaseDC (hwnd, hdc);          //释放窗口句柄
 
@@ -61,7 +63,8 @@ void DrawDot(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 	hdc = GetDC (hwnd) ;               //获得窗口句柄
 	SaveDC(hdc);                            //保存原来的设备句柄
 
-	SelectObject(hdc , hPen);//选择画笔
+	HPEN hOldPen;
+	hOldPen = (HPEN)SelectObject(hdc , hPen);//选择画笔
 	
 	SetMapMode (hdc, MM_ANISOTROPIC) ;
 	SetWindowExtEx (hdc, SCALE_HEIGHT_UNIT * 20, SCALE_HEIGHT_UNIT * -20, NULL) ;   //逻辑坐标间距
@@ -86,6 +89,7 @@ void DrawDot(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  )
 		Ellipse(hdc, rectTemp.left, rectTemp.top, rectTemp.right, rectTemp.bottom);
 	}
 	
+	SelectObject(hdc , hOldPen);
 	RestoreDC (hdc, -1) ;               //恢复原来的设备句柄
 	ReleaseDC (hwnd, hdc);          //释放窗口句柄
 
@@ -124,10 +128,37 @@ void GetDataRange(double &minX , double &maxX , double &minY , double &maxY ,Fil
 
 	}
 
-	maxX = maxX + 1;
-	maxY = maxY + 1;
-	minX = minX - 1;
-	minY = minY - 1;
+	int n = 0;
+	n = CalcExponent( maxX - minX ) - 1;
+	maxX = maxX + pow(10.0, n);
+	minX = minX - pow(10.0, n);
+
+	n = CalcExponent( maxY - minY ) - 1;
+	maxY = maxY + pow(10.0, n);
+	minY = minY - pow(10.0, n);
+	//根据 max 和 min 的差值，适当扩大坐标轴范围
 
 	return;
+}
+
+int CalcExponent(double num)
+{
+	int n = 0;
+	if(num < 1)
+	{
+		while (num < 1)
+		{
+			num *= 10;
+			n--;
+		}
+	}
+	else
+	{
+		while (num > 10)
+		{
+			num /= 10;
+			n++;
+		}
+	}
+	return n;
 }

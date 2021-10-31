@@ -21,8 +21,6 @@ BOOL beFaund = false;
 int OriginalNum = 0;
 int SmoothNum = 0;
 
-COLORREF bkColor = RGB(192,192,192);
-
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
 {
 	static TCHAR szAppName[]=TEXT("TEST");
@@ -218,6 +216,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == ORIGIN) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -246,6 +245,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == SMOOTH) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -282,6 +282,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == SZA_G) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -313,6 +314,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == AMPLITUDE) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -344,6 +346,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == FILTERAMP) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -375,6 +378,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == FILTERAVG) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -405,6 +409,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == FILTERMEDIAN) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;
@@ -436,6 +441,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					while(p) {
 						if((p->line).LineName == FILTERDEBNC) {
 							beFaund = true;
+							p = p->next;
 						}
 						else {
 							p = p->next;

@@ -10,7 +10,7 @@
 #define YELLOW		RGB(255,255,0)
 #define GREEN		RGB(0,150,0)
 #define LTBLUE		RGB(0,210,210)
-#define BLUE		RGB(0,43,150)
+#define BLUE		RGB(0,0,255)
 #define PINK		RGB(220,94,133)
 #define PURPLE		RGB(160,32,240)
 
@@ -27,8 +27,7 @@ public:
 public:
 	FileInfo data;
 	int PointNum;
-	LINENAME LineName;
-	//曲线名，用于区别不同曲线和Setting,Delete
+	LINENAME LineName;		//曲线名，用于区别不同曲线和Setting,Delete
 
 	//画图相关
 public:

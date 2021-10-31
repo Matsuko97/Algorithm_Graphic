@@ -24,6 +24,7 @@ void AmplitudeLimiterFilter( fileInfo *data ,int Num )
 	WriteFileInfo( Num , dataNew , szAmpFilter );
 
 	free(dataNew);
+	dataNew = NULL;
 
 	return ;
 }

@@ -36,7 +36,7 @@ void PlotWnd::RecordLineList( LineList &LineHead , LineList &LineRear , Line &cu
 		temp->next = NULL;
 
 		LineRear->next = temp;
-		LineRear=temp;
+		LineRear = temp;
 	}
 
 	return;
@@ -157,15 +157,6 @@ LRESULT CALLBACK PlotWnd::WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lP
 			
 			if( function == BIG )
 			{
-				//RECT rect;
-				//GetClientRect(hwnd,&rect);
-				//int cxClient=rect.right;
-				//int cyClient=rect.bottom;
-				//HDC hdc= GetDC(hwnd);
-				//SetStretchBltMode(hdc,COLORONCOLOR);
-				//StretchBlt (hdc, 0, 0, cxClient*1.5, cyClient*1.5,
-				//	hdc, pt.x, pt.y, cxClient, cyClient, MERGECOPY) ;
-				//ReleaseDC(hwnd, hdc) ;
 				RECT rect;
 				GetClientRect(hwnd,&rect);
 				int cxClient=rect.right;

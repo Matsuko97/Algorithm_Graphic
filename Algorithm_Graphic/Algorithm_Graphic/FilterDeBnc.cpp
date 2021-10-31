@@ -32,6 +32,7 @@ void DebounceFilter( fileInfo *data ,int Num )
 	WriteFileInfo( Num , dataNew , szFilterDeBnc );
 
 	free(dataNew);
+	dataNew = NULL;
 
 	return ;
 }

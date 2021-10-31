@@ -17,6 +17,7 @@ void DrawPolyLine(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen );
 BOOL DrawLine(HDC hdc, int nX, int nY);
 void DrawDot(HWND hwnd ,int lineNum, FileInfo data, HPEN hPen  );
 
+int CalcExponent(double num);
 int LogicX2WindowX(double x);
 int LogicY2WindowY(double y);
 

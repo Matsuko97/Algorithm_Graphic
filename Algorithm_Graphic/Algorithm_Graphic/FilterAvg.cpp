@@ -46,6 +46,8 @@ void AverageFilter( fileInfo *data, int Num )
 
 	free(dataNew);
 	free(dataTemp);
+	dataNew = NULL;
+	dataTemp = NULL;
 
 	return ;
 }

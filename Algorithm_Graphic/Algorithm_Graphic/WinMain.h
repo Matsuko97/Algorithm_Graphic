@@ -1,6 +1,8 @@
 #ifndef _WINMAIN_H_
 #define _WINMAIN_H_
 
+#define bkColor		RGB(220,220,220)
+
 typedef struct{
 	double X;					
 	double Y;					
