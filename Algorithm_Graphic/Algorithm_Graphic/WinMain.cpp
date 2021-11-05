@@ -676,7 +676,45 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				break;
 
 			case IDB_SNIP:
+				{	p = plotWnd.Head;
+				while(p) {
+					if((p->line).LineName == SNIP) {
+						beFaund = true;
+						p = p->next;
+					}
+					else {
+						p = p->next;
+					}
+				}
 
+				if(beFaund){
+					beFaund = false;
+				}
+				else{
+					if( Head ){
+						Line BaseSNIP;
+						_sntprintf_s(BaseSNIP.szName, 128, TEXT("Base_SNIP"));
+						_sntprintf_s(szSNIPBase, 128, BaseSNIP.szName);
+						GenerateFileName( szSNIPBase );
+
+						ImprovedSNIP( fileDataSmooth, SmoothNum, Head );
+
+						BaseSNIP.data = GetData(szSNIPBase);
+						BaseSNIP.PointNum = lineNum;
+						BaseSNIP.LineColor = DKGREEN;
+						BaseSNIP.PenStyle = PS_SOLID;
+						BaseSNIP.type = CURVE;
+						BaseSNIP.LineName = SNIP;
+						temp = BaseSNIP;
+						plotWnd.RecordLineList( plotWnd.Head , plotWnd.Rear , temp);
+					}
+					else
+					{
+					//先进行对称零面积处理
+					}
+				}
+				SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
+				}
 				break;
 
 			case IDM_SETTING:

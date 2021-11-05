@@ -313,6 +313,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SNIP.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SymmetricZeroArea.h"
 				>
 			</File>

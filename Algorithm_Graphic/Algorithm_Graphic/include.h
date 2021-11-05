@@ -28,3 +28,5 @@
 #include "FilterDeBnc.h"
 #include "FilterMedian.h"
 #include "RecursiveMedianFilter.h"
+
+#include "SNIP.h"
