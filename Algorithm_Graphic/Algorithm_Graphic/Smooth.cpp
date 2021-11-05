@@ -1,6 +1,6 @@
 #include "include.h"
 
-TCHAR szFileNameSmooth[128]={TEXT("Smooth")};
+TCHAR szFileNameSmooth[128]={0};
 
 void Smooth(FileInfo dataNew, int &lineNum, FileInfo &dataNewSmooth)
 {

@@ -3,7 +3,7 @@
 
 #define N   10  
 
-void DebounceFilter( fileInfo *data ,int Num );
+int DebounceFilter( fileInfo *data ,int Num );
 
 extern TCHAR szFilterDeBnc[128];
 

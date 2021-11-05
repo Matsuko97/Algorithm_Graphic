@@ -5,7 +5,7 @@
 
 #define VARIATION_RANGE 0.5
 
-void AmplitudeLimiterFilter( fileInfo *data ,int Num );
+int AmplitudeLimiterFilter( fileInfo *data ,int Num );
 
 extern TCHAR szAmpFilter[128];
 

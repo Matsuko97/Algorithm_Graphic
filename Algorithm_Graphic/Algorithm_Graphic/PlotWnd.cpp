@@ -154,7 +154,7 @@ LRESULT CALLBACK PlotWnd::WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lP
 			POINT pt = { 0 };
 			pt.x = LOWORD(lParam);
 			pt.y = HIWORD(lParam);
-			
+
 			if( function == BIG )
 			{
 				RECT rect;
@@ -168,6 +168,11 @@ LRESULT CALLBACK PlotWnd::WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lP
 				BitBlt(hdcMem, 0, 0, cxClient, cyClient, hdcClient, 0, 0, SRCCOPY);
 				PatBlt(hdcClient, 0, 0, cxClient, cyClient, WHITENESS);
 				SetStretchBltMode(hdcClient,COLORONCOLOR);
+				////
+				//int iDpi = GetDeviceCaps(hdcClient, LOGPIXELSX);
+				//StretchBlt(hdcClient, 0, 0, MulDiv(cxClient, 96, iDpi)*1.5,
+				//	MulDiv(cyClient, 96, iDpi)*1.5, 
+				//	hdcMem, pt.x, pt.y, cxClient, cyClient, SRCCOPY);
 				StretchBlt (hdcClient, 0, 0, cxClient*1.5, cyClient*1.5,
 					hdcMem, pt.x, pt.y, cxClient, cyClient, SRCCOPY);
 				ReleaseDC(hwnd, hdcClient) ;

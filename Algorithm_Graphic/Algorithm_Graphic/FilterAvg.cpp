@@ -1,6 +1,6 @@
 #include "include.h"
 
-TCHAR szAvgFilter[128] = {TEXT("AverageFilter")};
+TCHAR szAvgFilter[128] = {0};
 
 /*
 功能：进行平均值滤波，此处为分段滤波，递推滤波效果会更好一点
@@ -9,9 +9,13 @@ TCHAR szAvgFilter[128] = {TEXT("AverageFilter")};
 	int Num：数据个数；
 */
 
-void AverageFilter( fileInfo *data, int Num )
-
+int AverageFilter( fileInfo *data, int Num )
 {
+	if( data == NULL )
+	{
+		return -1;
+	}
+
 	double result = 0;
 	double *dataTemp;
 	dataTemp = (double*)calloc( AverageNum , sizeof(double) );
@@ -49,5 +53,5 @@ void AverageFilter( fileInfo *data, int Num )
 	dataNew = NULL;
 	dataTemp = NULL;
 
-	return ;
+	return 0;
 }

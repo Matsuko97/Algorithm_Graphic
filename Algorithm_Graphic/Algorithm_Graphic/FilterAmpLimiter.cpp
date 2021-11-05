@@ -1,10 +1,14 @@
 #include "include.h"
 
-TCHAR szAmpFilter[128] = {TEXT("AmpLimiterFilter")};
+TCHAR szAmpFilter[128] = {0};
 
-void AmplitudeLimiterFilter( fileInfo *data ,int Num )
-
+int AmplitudeLimiterFilter( fileInfo *data ,int Num )
 {
+	if( data == NULL )
+	{
+		return -1;
+	}
+
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
 	double temp = 0;
 	double B = 0;
@@ -26,5 +30,5 @@ void AmplitudeLimiterFilter( fileInfo *data ,int Num )
 	free(dataNew);
 	dataNew = NULL;
 
-	return ;
+	return 0;
 }

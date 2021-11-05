@@ -25,11 +25,11 @@ extern LinkList Head;
 extern LinkList Rear;
 
 extern TCHAR szSPeakName[128];
-extern TCHAR szBaseName[128];
+extern TCHAR *szBaseName;
 
 double G(int j);
 double C(int j);
-void SR(fileInfo *dataNew, int num);
+int SR(fileInfo *dataNew, int num);
 
 void RecordInfo( LinkList &Head , LinkList &Rear , int start , int end );
 

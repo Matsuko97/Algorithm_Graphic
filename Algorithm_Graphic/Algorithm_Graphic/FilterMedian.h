@@ -3,7 +3,7 @@
 
 #define MedianNum	31
 
-void MedianFilter( fileInfo *data, int Num );
+int MedianFilter( fileInfo *data, int Num );
 
 extern TCHAR szMedianFilter[128];
 

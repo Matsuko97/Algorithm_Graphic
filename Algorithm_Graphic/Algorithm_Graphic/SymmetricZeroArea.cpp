@@ -1,7 +1,7 @@
 #include "include.h"
 
-TCHAR szSPeakName[128]={TEXT("对称零面积寻峰")};
-TCHAR szBaseName[128]={TEXT("直线本底")};
+TCHAR szSPeakName[128] = {0};
+TCHAR *szBaseName = NULL;
 
 LinkList Head = NULL;
 LinkList Rear = NULL;
@@ -45,10 +45,18 @@ double C(int j)
 #endif
 }
 
-void SR(fileInfo *dataNew, int num)
+int SR(fileInfo *dataNew, int num)
 {
+	if( dataNew == NULL )
+	{
+		return -1;
+		//需要先进行光滑处理
+	}
+
 	TCHAR szBuffer[32]={0};
 
+	szBaseName = (TCHAR*)malloc(128 * sizeof(TCHAR));
+	_sntprintf_s(szBaseName, 128, 128, TEXT("Base_Straight"));
 	GenerateFileName( szSPeakName );
 	GenerateFileName( szBaseName );
 
@@ -99,7 +107,7 @@ void SR(fileInfo *dataNew, int num)
 #endif
 
 	}
-	return;
+	return 0;
 }
 
 void RecordInfo( LinkList &Head , LinkList &Rear , int start , int end )

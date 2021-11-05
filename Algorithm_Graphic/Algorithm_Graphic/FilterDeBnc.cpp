@@ -1,9 +1,14 @@
 #include "include.h"
 
-TCHAR szFilterDeBnc[128] = {TEXT("DeBounce")};
+TCHAR szFilterDeBnc[128] = {0};
 
-void DebounceFilter( fileInfo *data ,int Num )
+int DebounceFilter( fileInfo *data ,int Num )
 {
+	if( data == NULL )
+	{
+		return -1;
+	}
+
 	int n = 0;
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
 	double temp = data[0].Y;
@@ -34,5 +39,5 @@ void DebounceFilter( fileInfo *data ,int Num )
 	free(dataNew);
 	dataNew = NULL;
 
-	return ;
+	return 0;
 }

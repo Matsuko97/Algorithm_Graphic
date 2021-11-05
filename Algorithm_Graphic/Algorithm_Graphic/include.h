@@ -21,8 +21,10 @@
 #include "Smooth.h"
 #include "SymmetricZeroArea.h"
 #include "Amplitude.h"
+#include "CombinedSZA.h"
 //ÂË²¨Ëã·¨
 #include "FilterAmpLimiter.h"
 #include "FilterAvg.h"
 #include "FilterDeBnc.h"
 #include "FilterMedian.h"
+#include "RecursiveMedianFilter.h"

@@ -10,6 +10,7 @@ Line::Line()
 	LineColor = BLACK;
 	PenStyle = PS_SOLID;
 	type = CURVE;
+	//szName[128] = {0};
 	LineName = NOT_START;
 }
 

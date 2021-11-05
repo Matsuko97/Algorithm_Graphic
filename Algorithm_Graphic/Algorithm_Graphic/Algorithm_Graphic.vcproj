@@ -175,6 +175,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CombinedSZA.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DrawPlot.cpp"
 				>
 			</File>
@@ -215,7 +219,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\RecursiveMedianFilter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Smooth.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SNIP.cpp"
 				>
 			</File>
 			<File
@@ -238,6 +250,10 @@
 			>
 			<File
 				RelativePath=".\Amplitude.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CombinedSZA.h"
 				>
 			</File>
 			<File
@@ -282,6 +298,10 @@
 			</File>
 			<File
 				RelativePath=".\PlotWnd.h"
+				>
+			</File>
+			<File
+				RelativePath=".\RecursiveMedianFilter.h"
 				>
 			</File>
 			<File

@@ -2,10 +2,16 @@
 
 double threshold = 0.0;
 double deviation = 0.5;
-TCHAR szAmpName[128]={TEXT("幅值寻峰")};
+TCHAR szAmpName[128] = {0};
 
-void Amplitude(fileInfo *dataNew, int num)
+int Amplitude(fileInfo *dataNew, int num)
 {
+	if( dataNew == NULL )
+	{
+		return -1;
+		//需要先进行光滑处理
+	}
+
 	GenerateFileName( szAmpName );
 
 	//限幅
@@ -30,7 +36,9 @@ void Amplitude(fileInfo *dataNew, int num)
 			{
 				start = i;
 				++end;
-			}//
+			}
+			else
+			{}//
 		}
 		//限幅
 		else
@@ -43,8 +51,10 @@ void Amplitude(fileInfo *dataNew, int num)
 				start = 0;
 				threshold = dataNew[i].Y;
 			}
+			else
+			{}
 		}
 	}
 
-	return ;
+	return 0;
 }

@@ -1,10 +1,14 @@
 #include "include.h"
 
-TCHAR szMedianFilter[128] = {TEXT("MedianFilter")};
+TCHAR szMedianFilter[128] = {0};
 
-void MedianFilter( fileInfo *data, int Num )
-
+int MedianFilter( fileInfo *data, int Num )
 {
+	if( data == NULL )
+	{
+		return -1;
+	}
+
 	double result = 0;
 	double change = 0;
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
@@ -51,5 +55,5 @@ void MedianFilter( fileInfo *data, int Num )
 	dataTemp = NULL;
 	dataNew = NULL;
 
-	return ;
+	return 0;
 }
