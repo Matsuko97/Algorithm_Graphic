@@ -61,6 +61,9 @@ int CombinedAmplitude(fileInfo *dataNew, int num)
 		//需要先进行光滑处理
 	}
 
+	Head = NULL;
+	//将峰链表清空
+
 	GenerateFileName( szCombinedPeakName );
 
 //限幅
@@ -77,11 +80,12 @@ int CombinedAmplitude(fileInfo *dataNew, int num)
 		temp = dataNew[i+1].Y - CombinedThreshold ;
 		if(abs(temp) > CombinedDeviation)
 		{
-			CombinedSR(dataNew , num , i );
+			CombinedSR( dataNew , num , i );
 		}
 		else
 		{
 			y = dataNew[i].Y;
+			//y = CombinedThreshold;
 		}
 	}
 

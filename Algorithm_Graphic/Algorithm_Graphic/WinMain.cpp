@@ -412,7 +412,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					_sntprintf_s(CombinedSZA.szName, 128, TEXT("FdPk_CombinedSZA"));
 					_sntprintf_s(szCombinedPeakName, 128, CombinedSZA.szName);
 
-					if( CombinedAmplitude( fileData, SmoothNum ) )
+					if( CombinedAmplitude( fileDataSmooth, SmoothNum ) )
 					{
 						//break;
 						//先进行光滑处理
@@ -676,21 +676,22 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 				break;
 
 			case IDB_SNIP:
-				{	p = plotWnd.Head;
-				while(p) {
-					if((p->line).LineName == SNIP) {
-						beFaund = true;
-						p = p->next;
-					}
-					else {
-						p = p->next;
-					}
-				}
+				{	
+				//p = plotWnd.Head;
+				//while(p) {
+				//	if((p->line).LineName == SNIP) {
+				//		beFaund = true;
+				//		p = p->next;
+				//	}
+				//	else {
+				//		p = p->next;
+				//	}
+				//}
 
-				if(beFaund){
-					beFaund = false;
-				}
-				else{
+				//if(beFaund){
+				//	beFaund = false;
+				//}
+				//else{
 					if( Head ){
 						Line BaseSNIP;
 						_sntprintf_s(BaseSNIP.szName, 128, TEXT("Base_SNIP"));
@@ -712,7 +713,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 					{
 					//先进行对称零面积处理
 					}
-				}
+				//}
 				SendMessage(plotWnd.hwndPlot , WM_PAINT , wParam ,lParam);
 				}
 				break;

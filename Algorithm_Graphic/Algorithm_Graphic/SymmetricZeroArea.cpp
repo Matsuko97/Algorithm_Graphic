@@ -53,6 +53,9 @@ int SR(fileInfo *dataNew, int num)
 		//需要先进行光滑处理
 	}
 
+	Head = NULL;
+	//将峰链表清空
+
 	TCHAR szBuffer[32]={0};
 
 	szBaseName = (TCHAR*)malloc(128 * sizeof(TCHAR));

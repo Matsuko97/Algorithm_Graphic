@@ -12,6 +12,9 @@ int Amplitude(fileInfo *dataNew, int num)
 		//需要先进行光滑处理
 	}
 
+	Head = NULL;
+	//将峰链表清空
+
 	GenerateFileName( szAmpName );
 
 	//限幅
@@ -49,7 +52,9 @@ int Amplitude(fileInfo *dataNew, int num)
 				RecordInfo( Head , Rear , start , end-1 );
 				end = 0;
 				start = 0;
-				threshold = dataNew[i].Y;
+				//threshold = dataNew[i].Y;
+				//动态调整阈值 threshold 时，依据绝对值来判定峰，导致threshold上下的deviation
+				//都判定为峰，在曲线上就是峰结束后有一段下降的趋势，也判定为峰
 			}
 			else
 			{}
