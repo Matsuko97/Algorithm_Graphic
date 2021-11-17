@@ -3,8 +3,6 @@
 
 //功能：限幅滤波的简易实现
 
-#define VARIATION_RANGE 0.5
-
 int AmplitudeLimiterFilter( fileInfo *data ,int Num );
 
 extern TCHAR szAmpFilter[128];

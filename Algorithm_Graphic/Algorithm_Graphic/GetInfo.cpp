@@ -22,12 +22,12 @@ int GetLineNum(const TCHAR* path)
 			++num;
 		else
 		{
-			c=fgetc(fp);
-			if( c==EOF )
-			{
-				num++;
-				break;
-			}
+			//c = fgetc(fp);
+			//if( c==EOF )
+			//{
+			//	num++;
+			//	break;
+			//}
 		}
 	}
 
@@ -36,6 +36,7 @@ int GetLineNum(const TCHAR* path)
 
 FileInfo GetData( const TCHAR* path)
 {
+
 	lineNum = GetLineNum(path);
 	fileInfo *data;
 	data = (fileInfo*)calloc( lineNum , sizeof(fileInfo) );

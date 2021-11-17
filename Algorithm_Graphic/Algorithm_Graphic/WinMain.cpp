@@ -1,6 +1,6 @@
 #include "include.h"
 
-TCHAR szFileName[100]={0};
+TCHAR szFileName[MAX_PATH]={0};
 static OPENFILENAME ofn = { 0 };                //打开文件所需结构体
 static TCHAR szTitleName[MAX_PATH];
 static TCHAR szFilter[] = TEXT("文本文件 (*.txt)\0*.txt\0所有文件 (*.*)\0*.*\0\0");
@@ -21,6 +21,8 @@ BOOL beFaund = false;
 
 int OriginalNum = 0;
 int SmoothNum = 0;
+double Factor = 0;
+int E = 0;
 
 int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd)
 {
@@ -192,7 +194,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 
 			case IDM_FILE_OPEN:
 				plotWnd.dataReady = false;
-				memset( szFileName , 0 , sizeof(TCHAR) * 100 );
+				memset( szFileName , 0 , sizeof(TCHAR) * MAX_PATH );
 				memset( szTitleName , 0 , sizeof(TCHAR) * MAX_PATH);
 				memset( &ofn , 0 , sizeof(OPENFILENAME));
 
@@ -216,7 +218,9 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam)
 						OriginalNum = GetLineNum( szFileName );
 						plotWnd.dataReady = true;
 						GetDataRange(minX , maxX, minY , maxY ,fileData);
-
+						E = CalcExponent( fileData[0].Y ) - 1;
+						Factor = E ? E : 1;
+						Factor = pow( 10 , Factor );
 						SendMessage( plotWnd.hwndPlot , WM_PAINT , wParam , lParam );
 					}
 					else

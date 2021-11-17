@@ -1,5 +1,7 @@
 #include "include.h"
 
+double VARIATION_RANGE = 0.5;
+
 TCHAR szAmpFilter[128] = {0};
 
 int AmplitudeLimiterFilter( fileInfo *data ,int Num )
@@ -8,6 +10,9 @@ int AmplitudeLimiterFilter( fileInfo *data ,int Num )
 	{
 		return -1;
 	}
+
+	VARIATION_RANGE = VARIATION_RANGE * Factor ;
+	//根据源数据的数量级重新计算VARIATION_RANGE
 
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
 	double temp = 0;

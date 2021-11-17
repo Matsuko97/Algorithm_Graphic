@@ -22,7 +22,7 @@ int AverageFilter( fileInfo *data, int Num )
 	FileInfo dataNew = (fileInfo*)calloc( Num , sizeof(fileInfo) );
 	int i;	
 
-	for( int a = 0; a < Num - AverageNum/2 ; a = a + AverageNum )
+	for( int a = 0; a < Num - AverageNum ; a = a + AverageNum )
 	{
 		for( i = a; i < (AverageNum + a); i++)
 			dataTemp[i-a] = (data[i].Y);
@@ -46,7 +46,7 @@ int AverageFilter( fileInfo *data, int Num )
 	//现在是动态开辟数组个数，因此在循环中会出现数组越界而导致后续写入出错
 
 	GenerateFileName( szAvgFilter );
-	WriteFileInfo( Num - AverageNum/2 , dataNew , szAvgFilter );
+	WriteFileInfo( Num - AverageNum , dataNew , szAvgFilter );
 
 	free(dataNew);
 	free(dataTemp);

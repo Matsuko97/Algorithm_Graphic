@@ -110,7 +110,9 @@ void ImprovedSNIP(fileInfo *dataNew, int num , LinkList Head)
 		}
 		else
 		{
-			BasicSNIP( dataNew, num, FixedWidth, i, false);
+			BasicSNIP( dataNew, num, width, i, false);
+			//BasicSNIP( dataNew, num, FixedWidth, i, false);
+			//使用固定变换宽度进行SNIP算法
 			//_sntprintf_s(szBuffer, 32, TEXT("%.3lf  %.3lf\n"), dataNew->Time[i], dataNew->Pressure[i]);    
 			//MyWriteFile(1,szBuffer, szSNIPBase);
 			//memset(szBuffer, 0, sizeof(TCHAR) * 32);

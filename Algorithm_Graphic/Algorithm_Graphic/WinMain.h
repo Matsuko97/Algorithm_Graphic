@@ -12,7 +12,7 @@ LRESULT CALLBACK WndProc(HWND,UINT,WPARAM,LPARAM);
 LRESULT CALLBACK PlotWndProc(HWND hwnd,UINT message,WPARAM wParam,LPARAM lParam);
 INT_PTR CALLBACK DlgProc(HWND hdlg, UINT msg, WPARAM wParam, LPARAM lParam);
 
-extern TCHAR szFileName[100];
+extern TCHAR szFileName[MAX_PATH];
 extern HWND hwnd;
 extern HINSTANCE hInst;
 
@@ -21,5 +21,7 @@ extern FileInfo fileDataSmooth;
 
 extern int  cxChar, cyChar ;
 extern int OriginalNum;
+extern int SmoothNum;
+extern double Factor;
 
 #endif

@@ -12,6 +12,9 @@ int Amplitude(fileInfo *dataNew, int num)
 		//需要先进行光滑处理
 	}
 
+	deviation = deviation * Factor ;
+	//根据源数据的数量级重新计算deviation
+
 	Head = NULL;
 	//将峰链表清空
 

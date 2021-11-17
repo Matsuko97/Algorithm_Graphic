@@ -61,6 +61,9 @@ int CombinedAmplitude(fileInfo *dataNew, int num)
 		//需要先进行光滑处理
 	}
 
+	CombinedDeviation = CombinedDeviation * Factor ;
+	//根据源数据的数量级重新计算CombinedDeviation
+
 	Head = NULL;
 	//将峰链表清空
 
